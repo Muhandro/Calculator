@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculator</title>
+    <style>
+        body {
+            background-color: lavenderblush;
+            font-family: "Comic Sans MS", sans-serif;
+            margin: 0;
+            padding: 10px;
+        }
+        .container {
+            width: 300px;
+            margin: auto;
+        }
+        .gif-left, .gif-left img {
+            position: absolute;
+            top: 10px;
+            left: 300px;
+            width: 200px;
+            height: 200px;
+
+        }
+        .gif-right, .gif-right img {
+            position: absolute;
+            top: 10px;
+            right: 325px;
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+    <script>
+        async function calculate() {
+            const expression = document.getElementById("expression").value;
+            const response = await fetch('http://127.0.0.1:5000/calculate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ expression: expression })
+            });
+            const data = await response.json();
+            document.getElementById("result").textContent = data.result || data.error;
+        }
+    </script>
+</head>
+<body>
+    <div class="gif-left">
+        <img src="/static/pic.gif" alt="Gif Image">
+    </div>
+    <div class="gif-right">
+        <img src="/static/Taylor_Swift.gif" alt="Gif Image">
+    </div>
+    <div class="container">
+        <h1>Calculator</h1>
+        <input type="text" id="expression" placeholder="Enter your expression">
+        <button onclick="calculate()">Calculate</button>
+        <p>Result: <span id="result"></span></p>
+    </div>
+</body>
+</html>
