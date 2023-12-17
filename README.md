@@ -1,3 +1,3 @@
 # Calculator
 
-![image info](images/main.png)
+![image info](Images/main.png)
